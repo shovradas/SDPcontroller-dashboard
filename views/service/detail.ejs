@@ -1,0 +1,79 @@
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">service id</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.id%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">name</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.name%></div>
+    </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">description</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.description%></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body py-3">
+            <div class="detail-label">total instances</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.instance_count%></div>
+        </div>
+    </div>
+</div>
+
+<h6 class="h6 text-gray-800 text-uppercase mb-4">Instances' Detail</h6>
+
+
+<div class="table-responsive">
+    <table class="table bg-white border-bottom" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>                
+                <th class="pl-4">PROTOCOL</th>
+                <th>PORT</th>
+                <th>NAT IP</th>
+                <th>NAT PORT</th>
+                <th>GATEWAY</th>                
+            </tr>
+        </thead>
+        <tbody>
+            <% instanceList.forEach(instance => { %>
+            <tr>                
+                <td class="pl-4"><%= instance.protocol %></td>
+                <td><%= instance.port %></td>
+                <td><%= instance.nat_ip %></td>
+                <td><%= instance.nat_port? instance.nat_port: '' %></td> 
+                <td>                    
+                    <a href="/sdpid/<%=instance.gateway_sdpid%>"><%= instance.gateway_sdpid %></a>
+                    <i class="fas fa-shield-alt text-success"></i>
+                </td>
+            </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+    
+    <%- instanceList.length == 0? '<div class="text-center mb-3">There are no instances yet. Click edit to add one</div>' : '' %>
+</div>
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+    <a href="<%= moduleRoute %>/<%=obj.id%>/update" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-edit fa-sm text-white-50"></i> Edit
+    </a>
+    <a href="<%= moduleRoute %>/<%=obj.id%>/delete" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+        <i class="fas fa-trash fa-sm text-white-50"></i> Delete
+    </a>
+    <a href="<%= moduleRoute %>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New
+    </a>
+</div>

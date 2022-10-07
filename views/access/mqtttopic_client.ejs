@@ -1,0 +1,44 @@
+<div class="mb-4">
+    <% if(accessListDict.length==0) { %>
+        <div class="card mb-4">
+            <div class="card-body">
+                No access data available
+            </div>
+        </div>
+    <% } %>
+    <div id="accordionAccess">
+        <% for (const [topic_id, accessList] of Object.entries(accessListDict)) {%>
+        <div class="card mb-2">
+            <div class="card-body p-3" id="headingAccess<%=topic_id%>">
+                <div class="d-sm-flex justify-content-between">
+                    <a href="/mqtttopic/<%=topic_id%>"><%=topic_id%> - <%=accessList[0].topic_name%></a>                    
+                    <button class="btn btn-primary btn-icon-split btn-sm" data-toggle="collapse" data-target="#collapseAccess<%=topic_id%>" aria-expanded="true"  aria-controls="collapseAccess<%=topic_id%>">
+                        <span class="icon text-white-50"><i class="fas fa-caret-down"></i></span>
+                        <span class="text">Clients <span class="badge badge-light"><%=accessList.length==1 && !accessList[0].id ? 0 : accessList.length%></span></span>
+                    </button>    
+                </div>
+            </div>
+            <div id="collapseAccess<%=topic_id%>" class="collapse" aria-labelledby="headingAccess<%=topic_id%>" data-parent="#accordionAccess">
+                <div class="card-header py-4">
+                    <% accessList.forEach(access=> {%>
+                        <% if(access.id) { %>
+                            <a href="/access/<%=access.id%>/mqtttopic/<%=topic_id%>/client/revoke" class="btn btn-dark btn-circle btn-sm mx-2"><i class="fas fa-minus"></i></a>
+                            <a href="/sdpid/<%=access.sdpid%>"><%=access.sdpid%> - <%=access.locality%>, <%=access.state%>,  <%=access.country%></a>
+                            <hr>
+                        <% } %>                        
+                    <% }); %>
+                    <a href="/access/mqtttopic/<%=topic_id%>/client/grant" class="btn btn-success btn-circle btn-sm mx-2"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>    
+</div>
+
+
+<%- contentFor('page_script') %>
+<script>
+    if(document.location.hash) {
+        $(`${document.location.hash}+div`).collapse({ toggle: true });
+    }
+</script>

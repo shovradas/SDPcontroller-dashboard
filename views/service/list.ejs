@@ -1,0 +1,63 @@
+<div class="mb-4">    
+    <div class="table-responsive">
+        <%- include('partials/pagination') %>
+        <table class="table bg-white border-bottom" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="pl-4">
+                        <a class="<%=sort.property=='id'?'active':'text-dark'%>" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page%>&limit=<%=limit%>&sort=id.<%=sort.property=='id'?(sort.order=='asc'?'desc': 'asc'):'asc'%>">
+                            ID <i class="fas fa-sort<%=sort.property=='id'?(sort.order=='asc'?'-up':'-down'):''%> fa-sm"></i>
+                        </a>
+                    </th>
+                    <th>                        
+                        <a class="<%=sort.property=='name'?'active':'text-dark'%>" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page%>&limit=<%=limit%>&sort=name.<%=sort.property=='name'?(sort.order=='asc'?'desc': 'asc'):'asc'%>">
+                            NAME <i class="fas fa-sort<%=sort.property=='name'?(sort.order=='asc'?'-up':'-down'):''%> fa-sm"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <a class="<%=sort.property=='description'?'active':'text-dark'%>" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page%>&limit=<%=limit%>&sort=description.<%=sort.property=='description'?(sort.order=='asc'?'desc': 'asc'):'asc'%>">
+                            DESCRIPTION <i class="fas fa-sort<%=sort.property=='description'?(sort.order=='asc'?'-up':'-down'):''%> fa-sm"></i>
+                        </a>
+                    </th>
+                    <th class="text-center">
+                        <a  class="<%=sort.property=='instance_count'?'active':'text-dark'%>" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page%>&limit=<%=limit%>&sort=instance_count.<%=sort.property=='instance_count'?(sort.order=='asc'?'desc': 'asc'):'asc'%>">
+                            INSTANCES <i class="fas fa-sort<%=sort.property=='instance_count'?(sort.order=='asc'?'-up':'-down'):''%> fa-sm"></i>
+                        </a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% list.forEach(obj => { %>
+                <tr>
+                    <td class="pl-4">
+                        <a href="<%=moduleRoute%>/<%=obj.id%>"><%=obj.id%></a>
+                    </td>
+                    <td><%= obj.name %></td>
+                    <td><%= obj.description %></td>
+                    <td class="text-center"><a href="<%=moduleRoute%>/<%=obj.id%>"><%= obj.instance_count %></a></td>
+                    <td class="text-right">
+                        <a href="<%=moduleRoute%>/<%=obj.id%>" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-info"></i></a>
+                        <a href="<%=moduleRoute%>/<%=obj.id%>/update" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="<%=moduleRoute%>/<%=obj.id%>/delete/" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>                
+                <% }) %>                
+            </tbody>
+        </table>
+        
+        <%- list.length == 0? '<div class="text-center mb-3">No records available</div>' : '' %>
+        
+        <%- include('partials/pagination') %>
+    </div>              
+</div>
+
+<%- contentFor('search_panel') %>
+<%- include('partials/list_search') %>
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New
+    </a>
+</div>

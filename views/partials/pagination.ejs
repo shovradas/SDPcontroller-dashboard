@@ -1,0 +1,29 @@
+<% 
+let pageCount = Math.ceil(totalCount/limit);
+console.log('From pagination', totalCount, limit, page);
+%>
+
+<table class="table bg-white">
+    <tr>
+        <td class="pt-3 border-top-0">
+            Displaying 
+            <select name="limit" class="custom-select custom-select-sm custom-select-pagination" onchange="document.location.href=`<%=moduleRoute%>?page=1&limit=${this.value}`">
+                <option value="10" <%= limit == 10? 'selected="selected"' : '' %>>10</option>
+                <option value="20" <%= limit == 20? 'selected="selected"' : '' %>>25</option>
+                <option value="50" <%= limit == 50? 'selected="selected"' : '' %>>50</option>
+                <option value="100" <%= limit == 100? 'selected="selected"' : '' %>>100</option>
+                <option value="<%= totalCount %>" <%= limit == totalCount? 'selected="selected"' : '' %>>ALL</option>
+            </select>
+            of <%= totalCount %> records
+        </td>
+        <td class="border-top-0">
+            <ul class="pagination justify-content-end mb-0">
+                <li class="page-item <%= page <= 1 ? 'disabled' : '' %>"><a class="page-link" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page-1%>&limit=<%=limit%>&sort=<%=`${sort.property}.${sort.order}`%>">Previous</a></li>
+                <% for(let p=1; p<=pageCount; p++) { %>
+                <li class="page-item <%= page == p ? 'active' : '' %>"><a class="page-link" href="<%=moduleRoute%>?key=<%=key%>&page=<%=p%>&limit=<%=limit%>&sort=<%=`${sort.property}.${sort.order}`%>"><%= p %></a></li>
+                <% } %>
+                <li class="page-item <%= page >= pageCount ? 'disabled' : '' %>"><a class="page-link" href="<%=moduleRoute%>?key=<%=key%>&page=<%=page+1%>&limit=<%=limit%>&sort=<%=`${sort.property}.${sort.order}`%>">Next</a></li>
+            </ul>
+        </td>
+    </tr>
+</table> 

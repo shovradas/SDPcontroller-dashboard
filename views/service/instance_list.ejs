@@ -1,0 +1,58 @@
+<div class="mb-4">    
+    <div class="table-responsive">
+        <%- include('partials/pagination')%>
+        <table class="table bg-white border-bottom" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="pl-4">SERVICE</th>                    
+                    <th>PROTOCOL</th>
+                    <th>PORT</th>
+                    <th>NAT IP</th>
+                    <th>NAT PORT</th>
+                    <th>GATEWAY</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <%
+                //console.log(list);
+            %>
+            <tbody>
+                <% let used_service_ids = [] %>
+                <% list.forEach(obj => {%>                    
+                <tr>
+                    <td class="pl-4">                        
+                        <a href="<%=moduleRoute%>/<%=obj.service_id%>"><%=used_service_ids.includes(obj.service_id)?'':`${obj.service_id} - ${obj.name}`%></a>
+                        <% used_service_ids.push(obj.service_id) %>
+                    </td>                    
+                    <td><%=obj.protocol%></td>
+                    <td><%=obj.port%></td>
+                    <td><%=obj.nat_ip%></td>
+                    <td><%=obj.nat_port?obj.nat_port:''%></td>
+                    <td>
+                        <a href="/sdpid/<%=obj.gateway_sdpid%>"><%=obj.gateway_sdpid%></a>
+                        <i class="fas fa-shield-alt text-success"></i>
+                    </td>
+                    <td class="text-right">
+                        <a href="<%=moduleRoute%>/<%=obj.service_id%>/instance/<%=obj.id%>/update" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="<%=moduleRoute%>/<%=obj.service_id%>/instance/<%=obj.id%>/delete" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                <% })%>
+            </tbody>
+        </table>
+        
+        <%- list.length == 0? '<div class="text-center mb-3">No records available</div>' : ''%>
+        
+        <%- include('partials/pagination')%>
+    </div>
+</div>
+
+<%- contentFor('search_panel')%>
+<%- include('partials/list_search')%>
+
+<%- contentFor('button_panel')%>
+<div class="text-right">
+    <a href="<%=moduleRoute%>/any/instance/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New Instance
+    </a>
+</div>

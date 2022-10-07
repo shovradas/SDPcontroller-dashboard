@@ -1,0 +1,72 @@
+<form method="post">
+    <div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Service Name" value="<%=typeof obj != 'undefined' ? obj.name : ''%>">
+                <div class="text-danger"><%=typeof error != 'undefined' && error.name ? error.name.message : ''%></div>      
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" placeholder="Service Description"><%=typeof obj != 'undefined' ? obj.description : ''%></textarea>
+                <div class="text-danger"><%=typeof error != "undefined" && error.description ? error.description.message : ''%></div>
+            </div>
+            <div class="form-group mb-0">
+                <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-save fa-sm text-white-50"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h6 class="h6 text-gray-800 text-uppercase mb-0">Edit Instances</h6>
+    <a href="<%=moduleRoute%>/<%=id%>/instance/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i>Add New Instance
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table bg-white border-bottom" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>                
+                <th class="pl-4">PROTOCOL</th>
+                <th>PORT</th>
+                <th>NAT IP</th>
+                <th>NAT PORT</th>
+                <th>GATEWAY</th>                
+            </tr>
+        </thead>
+        <tbody>
+            <% instanceList.forEach(instance => {%>
+            <tr>                
+                <td class="pl-4"><%=instance.protocol%></td>
+                <td><%=instance.port%></td>
+                <td><%=instance.nat_ip%></td>
+                <td><%=instance.nat_port? instance.nat_port: ''%></td> 
+                <td>                    
+                    <a href="/sdpid/<%=instance.gateway_sdpid%>"><%=instance.gateway_sdpid%></a>
+                    <i class="fas fa-shield-alt text-success"></i>
+                </td>
+                <td class="text-right">
+                    <a href="<%=moduleRoute%>/<%=obj.id%>/instance/<%=instance.id%>/update" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                    <a href="<%=moduleRoute%>/<%=obj.id%>/instance/<%=instance.id%>/delete/" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>                
+            <% })%> 
+        </tbody>
+    </table>
+    
+    <%- instanceList.length == 0? '<div class="text-center mb-3">There are no instances yet</div>' : ''%>
+</div>
+
+<%- contentFor('button_panel')%>
+<div class="text-right">
+    <a href="<%=moduleRoute%>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Service List
+    </a>
+    <a href="<%=moduleRoute%>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New Service
+    </a>
+</div>

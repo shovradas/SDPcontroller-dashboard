@@ -1,0 +1,36 @@
+<form method="post">
+    <div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+        <div class="card-body">                  
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter group name" value="<%= typeof obj != 'undefined' ? obj.name : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.name ? error.name.message : '' %></div>      
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select name="valid" class="form-control custom-select">
+                    <option value="1">Active</option>
+                    <option value="0" selected="selected">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group mb-0">
+                <label>Description</label>
+                <textarea name="description" class="form-control" placeholder="Enter group description"><%= typeof obj != 'undefined' ? obj.description : '' %></textarea>
+                <div class="text-danger"><%= typeof error != "undefined" && error.description ? error.description.message : '' %></div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-save fa-sm text-white-50"></i> Save
+        </button>
+    </div>
+
+</form>
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+</div>

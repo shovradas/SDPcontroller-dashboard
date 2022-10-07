@@ -1,0 +1,76 @@
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">instance id</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.id%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">service</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.service_id%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">protocol</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.protocol%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">port</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.port%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">nat ip</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.nat_ip? obj.nat_ip: 'None'%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">nat port</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.nat_port?obj.nat_port: 'None'%></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body py-3">
+            <div class="detail-label">protected by</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><a href="/sdpid/<%=obj.gateway_sdpid%>"><%=obj.gateway_sdpid%></a></div>
+        </div>
+    </div>
+</div>
+
+<div class="text-danger mb-3">Are you sure want to delete this Entry?</div> 
+
+<form method="post">
+    <input type="hidden" name="service_id" value="<%=obj.service_id%>">
+    <div class="mb-5">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+            <i class="fas fa-save fa-sm text-white-50"></i> Confirm
+        </button>
+        <a href="<%=moduleRoute%>/<%=obj.id%>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Abort
+        </a>
+    </div> 
+    
+</form>
+
+<%- contentFor('button_panel')%>
+<div class="text-right">
+    <a href="<%=moduleRoute%>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+    <a href="<%=moduleRoute%>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New
+    </a>
+</div>

@@ -1,0 +1,61 @@
+<form method="post">
+    <div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+        <div class="card-body">  
+            <div class="form-group">
+                <label>Target Service</label>
+                <div><a href="<%=moduleRoute%>/<%=service.id%>"><%=service.id%> - <%=service.name%></a></div>
+                <input type="hidden" name="service_id" value="<%=obj.service_id%>"> 
+            </div>
+            <hr class="mb-4">
+            <div class="form-group">
+                <label>Protecting Gateway*</label>
+                <select name="gateway_sdpid" class="form-control custom-select">
+                    <option value="">Select gateway</option>
+                    <% gatewayList.forEach(gw => {%>
+                        <option value="<%=gw.sdpid%>" <%=typeof obj!='undefined' && gw.sdpid==obj.gateway_sdpid?'selected="selected"':''%>><%=gw.sdpid%></option>
+                    <% })%>
+                </select>
+                <div class="text-danger"><%=typeof error != 'undefined' && error.gateway_sdpid ? 'You must select a valid gateway' : ''%></div>
+            </div>
+            <div class="form-group">
+                <label>Protocol*</label>
+                <select name="protocol" class="form-control custom-select">
+                    <option value="">Select protocol</option>
+                    <option value="TCP" <%=typeof obj!='undefined' && obj.protocol=='TCP'?'selected="selected"':''%>>TCP</option>
+                    <option value="UDP" <%=typeof obj!='undefined' && obj.protocol=='UDP'?'selected="selected"':'UDP'%>>UDP</option>
+                </select>
+                <div class="text-danger"><%=typeof error != 'undefined' && error.protocol ? 'You must select a valid protocol' : ''%></div>
+            </div>               
+            <div class="form-group">
+                <label>Port*</label>
+                <input type="text" name="port" class="form-control" placeholder="e.g. 1883" value="<%=typeof obj != 'undefined' && obj.port ? obj.port : ''%>">
+                <div class="text-danger"><%=typeof error != 'undefined' && error.port ? error.port.message : ''%></div>
+            </div>
+            <div class="form-group">
+                <label>Nat IP</label>
+                <input type="text" name="nat_ip" class="form-control" placeholder="e.g. 172.16.31.121" value="<%=typeof obj != 'undefined' ? obj.nat_ip : ''%>">
+                <div class="text-danger"><%=typeof error != 'undefined' && error.nat_ip ? error.nat_ip.message : ''%></div>
+            </div>
+            <div class="form-group mb-0">
+                <label>Nat Port</label>
+                <input type="text" name="nat_port" class="form-control" placeholder="e.g. 1883" value="<%=typeof obj != 'undefined' && obj.nat_port ? obj.nat_port : ''%>">
+                <div class="text-danger"><%=typeof error != 'undefined' && error.nat_port ? error.nat_port.message : ''%></div>
+            </div>            
+        </div>
+    </div>
+    <div class="mb-5">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-save fa-sm text-white-50"></i> Save
+        </button>
+    </div>    
+</form>
+
+<%- contentFor('button_panel')%>
+<div class="text-right">
+    <a href="<%=moduleRoute%>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Service List
+    </a>
+    <a href="<%=moduleRoute%>/all/instance" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Instance List
+    </a>
+</div>

@@ -1,0 +1,50 @@
+<form method="post">
+    <div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+        <div class="card-body">                  
+            <div class="form-group">
+                <label>Last Name*</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Enter last name" value="<%= typeof obj != 'undefined' ? obj.last_name : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.last_name ? error.last_name.message : '' %></div>      
+            </div>
+
+            <div class="form-group">
+                <label>First Name*</label>
+                <input type="text" name="first_name" class="form-control" placeholder="Enter first name" value="<%= typeof obj != 'undefined' ? obj.first_name : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.first_name ? error.first_name.message : '' %></div>      
+            </div>
+
+            <div class="form-group">
+                <label>Country</label>
+                <input type="text" name="country" class="form-control" placeholder="Enter country (e.g. DE)" value="<%= typeof obj != 'undefined' ? obj.country : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.country ? error.country.message : '' %></div>
+            </div>
+            <div class="form-group">
+                <label>State</label>
+                <input type="text" name="state" class="form-control" placeholder="Enter state (e.g. Saxony)" value="<%= typeof obj != 'undefined' ? obj.state : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.state ? error.state.message : '' %></div>
+            </div>
+            <div class="form-group">
+                <label>Locality</label>
+                <input type="text" name="locality" class="form-control" placeholder="Enter locality (e.g. Chemnitz)" value="<%= typeof obj != 'undefined' ? obj.locality : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.locality ? error.locality.message : '' %></div>
+            </div>
+            <div class="form-group">
+                <label>Organization</label>
+                <input type="text" name="org" class="form-control" placeholder="Enter organization name (e.g. TU Chemnitz)" value="<%= typeof obj != 'undefined' ? obj.org : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.org ? error.org.message : '' %></div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-save fa-sm text-white-50"></i> Save
+        </button> 
+    </div>    
+</form>
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+</div>

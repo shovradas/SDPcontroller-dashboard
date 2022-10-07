@@ -1,0 +1,32 @@
+<form method="post">
+    <div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+        <div class="card-body">                  
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Enter last name" value="<%= typeof obj != 'undefined' ? obj.last_name : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.last_name ? error.last_name.message : '' %></div>      
+            </div>
+
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" class="form-control" placeholder="Enter first name" value="<%= typeof obj != 'undefined' ? obj.first_name : '' %>">
+                <div class="text-danger"><%= typeof error != 'undefined' && error.first_name ? error.first_name.message : '' %></div>      
+            </div>
+        </div>
+    </div>
+    <div class="mb-5">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-save fa-sm text-white-50"></i> Save
+        </button>
+    </div>    
+</form>
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+    <a href="<%= moduleRoute %>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New
+    </a>
+</div>

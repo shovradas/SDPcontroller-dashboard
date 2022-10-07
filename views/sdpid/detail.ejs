@@ -1,0 +1,144 @@
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3"><div class="detail-label">component id</div>
+        <div class="detail-separator">:</div>
+        <div class="detail-value"><%=obj.sdpid%></div></div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">type</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.type%></div>
+        </div>
+    </div> 
+    <div class="card">
+        <div class="card-body py-3">
+            <div class="detail-label">Status</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.valid? 'Active': 'Inactive'%></div>
+        </div>
+    </div>       
+</div>
+
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">country</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.country%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">state</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.state%></div>
+        </div>
+    </div> 
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">locality</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.locality%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">org</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.org%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">org unit</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.org_unit%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">alternative name</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.alt_name%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">email</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.email%></div>
+        </div>
+    </div>      
+</div>
+
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">encrypt_key</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value text-break"><%=obj.encrypt_key%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">hmac_key</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value text-break"><%=obj.hmac_key%></div>
+        </div>
+    </div> 
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">serial</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value text-break"><%=obj.serial%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">last_cred_update</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.last_cred_update%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">cred_update_due</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj.cred_update_due%></div>
+        </div>
+    </div>   
+</div>
+
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3"><div class="detail-label">user_id</div>
+        <div class="detail-separator">:</div>
+        <div class="detail-value"><%=obj.user_id%></div></div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3"><div class="detail-label">environment_id</div>
+        <div class="detail-separator">:</div>
+        <div class="detail-value"><%=obj.environment_id%></div></div>
+    </div>     
+</div>
+
+
+<div class="mb-5">
+    <a href="<%= moduleRoute %>/<%= obj.sdpid %>/update" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-edit fa-sm text-white-50"></i> Edit
+    </a>
+    <a href="<%= moduleRoute %>/<%= obj.sdpid %>/delete" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+        <i class="fas fa-trash fa-sm text-white-50"></i> Delete
+    </a>
+</div>
+
+<%- contentFor('button_panel')  %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+    <a href="<%= moduleRoute %>/create" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i> Add New
+    </a>
+</div>
