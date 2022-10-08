@@ -9,12 +9,14 @@ const session = require('express-session');
 // routers
 const router = require('./route');
 const middleware = require('./middleware');
+const config = require('./config');
 
 const app = express();
 
 //  middleware
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/scripts', express.static(path.join(__dirname, '/node_modules/jszip-sync/dist/')));
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(morgan('tiny'));
@@ -30,9 +32,7 @@ app.set('views', [
 ]);
 app.set('view engine', 'ejs');
 
-const host = "192.168.31.31";
-const port = 8000;
-var server = app.listen(port, host, () => {
+var server = app.listen(config.serverPort, config.serverHost, () => {
     let host = server.address().address;
     let port = server.address().port;
     console.log(`Controller dashboard at http://${host}:${port}`);

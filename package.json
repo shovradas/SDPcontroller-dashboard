@@ -18,8 +18,11 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "fastest-validator": "^1.15.0",
+    "jszip-sync": "^3.2.1-sync",
     "morgan": "^1.10.0",
-    "mysql": "^2.10.2"
+    "mysql": "^2.10.2",
+    "pem": "^1.8.1",
+    "prompt": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

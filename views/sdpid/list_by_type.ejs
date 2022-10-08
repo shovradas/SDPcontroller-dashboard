@@ -15,7 +15,10 @@
             <tbody>
                 <% list.forEach(obj => { %>
                 <tr>
-                    <td class="pl-4"><a href="<%= moduleRoute %>/<%= obj.sdpid %>"><%= obj.sdpid %></a></td>
+                    <td class="pl-4">
+                        <a href="<%= moduleRoute %>/<%= obj.sdpid %>"><%= obj.sdpid %></a>
+                        <a href="<%= moduleRoute %>/<%= obj.sdpid %>/gencred" class="btn btn-sm" title="Generate or Update Credential"><i class="fas fa-key"></i></a>
+                    </td>
                     <td><%- obj.valid == 1? '<span class="text-success">Active<span>': 'Inactive' %></td>
                     <td><%= obj.user_id ? obj.user_id: 'Unassigned' %></td>                                
                     <td><%= obj.locality %>, <%= obj.state %>, <%= obj.country %></td>

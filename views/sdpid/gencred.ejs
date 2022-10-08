@@ -1,0 +1,195 @@
+<div class="card mb-4 py-3 border-left-secondary border-right-secondary">
+    <div class="card-body">
+
+        <form method="get">
+            <div class="form-group">
+                <label>Select Component</label>
+                <select size="10" name="sdpid" class="form-control custom-select rounded-0" onchange="document.location.href=`<%=moduleRoute%>/${this.value}/gencred`">
+                    <% list.forEach(sdpid => { %>
+                        <option value="<%=sdpid.sdpid%>" <%=obj && sdpid.sdpid==obj.sdpid?'selected="selected"': ''%>>
+                            <b><%=sdpid.sdpid%></b> - <%=sdpid.type%> - <%=sdpid.valid? 'Active': 'Inactive'%>
+                        </option>
+                    <% }); %>
+                </select>
+                <div class="text-danger"><%=typeof error != 'undefined' && error.sdpid ? 'You have to select a component' : ''%></div>
+            </div>
+        </form>
+
+        <form method="post">   
+            <div>           
+                <input type="hidden" name="sdpid" value="<%=obj?obj.sdpid:''%>">
+                <button class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                    <i class="fas fa-save fa-sm text-white-50"></i> Generate
+                </button>
+                <a href="<%=obj?`/sdpid/${obj.sdpid}/update`:'#'%>" <%=obj?'':'disabled'%> class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-save fa-sm text-white-50"></i> Edit Data
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<% if(obj) { %>
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">last_cred_update</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj && obj.last_cred_update%></div>
+        </div>
+    </div>
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label">cred_update_due</div>
+            <div class="detail-separator">:</div>
+            <div class="detail-value"><%=obj && obj.cred_update_due%></div>
+        </div>
+    </div>    
+</div>
+<% } %>
+
+
+<!-- IF STARTS HERE-->
+<% if(typeof credentials != 'undefined') { %>
+
+<div class="my-5">
+    <div class="card mb-2">
+        <div class="card-body py-3">
+            <div class="detail-label align-middle">Credentials</div>
+            <div class="detail-separator align-middle">:</div>
+            <div class="detail-value">
+                <a class="btn btn-link" data-toggle="modal" data-target="#tlscertModal">
+                    <i class="fas fa-certificate text-dark"></i> Certificate
+                </a>
+                
+                <a class="btn btn-link" data-toggle="modal" data-target="#tlskeyModal">
+                    <i class="fas fa-key text-danger"></i> Private Key
+                </a>
+                
+                <a class="btn btn-link" data-toggle="modal" data-target="#spakeysModal">
+                    <i class="fas fa-key"></i><i class="fas fa-key fa-xs"></i> SPA Keys
+                </a> 
+                
+                <a id="downloadZipLink" class="btn btn-secondary btn-icon-split btn-sm">
+                    <span class="icon text-white-50"><i class="fas fa-download"></i></span>
+                    <span class="text">Download Zip</span>
+                </a> 
+            </div>
+        </div>
+    </div>     
+</div>
+
+<!-- tlscertModal -->
+<div class="modal fade" id="tlscertModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Certificate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="tlsCert"><%=credentials.tls_cert%></pre>
+            </div>
+            <div class="modal-footer">
+                <a id="tlsCertLink" class="btn btn-primary">Save</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tlskeyModal -->
+<div class="modal fade" id="tlskeyModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Private Key</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="tlsKey"><%=credentials.tls_key%></pre>
+            </div>
+            <div class="modal-footer">
+                <a id="tlsKeyLink" class="btn btn-primary">Save</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- spakeysModal -->
+<div class="modal fade" id="spakeysModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">SPA Keys</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+<pre id="spaKeys">
+KEY_BASE64      <%=credentials.spa_encryption_key_base64%>
+HMAC_KEY_BASE64 <%=credentials.spa_hmac_key_base64%>
+</pre>
+            </div>
+            <div class="modal-footer">
+                <a id="spaKeysLink" class="btn btn-primary">Save</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('page_script') %>
+<script src="/scripts/jszip.min.js"></script>
+<script>
+    function configureDownload(sourceLinkId, dataSourceId, fileName){
+        const link = document.querySelector(`#${sourceLinkId}`);
+        link.addEventListener('click', ()=>{
+            const data = document.querySelector(`#${dataSourceId}`).innerHTML;
+            const blob = new Blob([data], {type: 'text/plain'});            
+            
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+        });
+    }
+    configureDownload('tlsCertLink', 'tlsCert', '<%=obj.sdpid%>.crt');
+    configureDownload('tlsKeyLink', 'tlsKey', '<%=obj.sdpid%>.key');
+    configureDownload('spaKeysLink', 'spaKeys', '<%=obj.sdpid%>.spa_keys');
+
+    const downloadZipLink = document.querySelector('#downloadZipLink');
+    downloadZipLink.addEventListener('click', async ()=>{        
+        const tlsCert = document.querySelector('#tlsCert').innerHTML;
+        const tlsKey = document.querySelector('#tlsKey').innerHTML;
+        const spaKeys = document.querySelector('#spaKeys').innerHTML;
+
+        let zip = new JSZip();       
+        var zipped = zip.sync(function() {
+            zip.file("<%=obj.sdpid%>.crt", tlsCert);
+            zip.file("<%=obj.sdpid%>.key", tlsKey);
+            zip.file("<%=obj.sdpid%>.spa_keys", spaKeys);
+            var data = null;
+            zip.generateAsync({type:"blob"}).then((content)=>{data=content;});
+            return data;
+        });
+
+        downloadZipLink.href = URL.createObjectURL(zipped);
+        downloadZipLink.download = '<%=obj.sdpid%>.zip';
+    });
+</script>
+
+<% } %>
+<!-- END OF IF -->
+
+<%- contentFor('button_panel') %>
+<div class="text-right">
+    <a href="<%= moduleRoute %>" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List
+    </a>
+</div>
+

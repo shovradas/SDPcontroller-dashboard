@@ -32,3 +32,7 @@
     text-align: center;
     vertical-align: top;
 }
+
+.badge{
+    padding-bottom: 0.35rem;
+}

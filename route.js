@@ -59,12 +59,15 @@ router.get('/sdpid/create', sdpidController.createGet);
 router.post('/sdpid/create', sdpidController.createPost);
 router.get('/sdpid/create/type/:type', sdpidController.createGet);
 router.post('/sdpid/create/type/:type', sdpidController.createPost);
+router.get('/sdpid/gencred', sdpidController.genCredGet);
+router.post('/sdpid/gencred', sdpidController.genCredPost);
 router.get('/sdpid/:id', sdpidController.detail);
 router.get('/sdpid/:id/update', sdpidController.updateGet);
 router.post('/sdpid/:id/update', sdpidController.updatePost);
 router.get('/sdpid/:id/delete', sdpidController.deleteGet);
 router.post('/sdpid/:id/delete', sdpidController.deletePost);
-
+router.get('/sdpid/:id/gencred', sdpidController.genCredGet);
+router.post('/sdpid/:id/gencred', sdpidController.genCredPost);
 
 // routes for service
 router.get('/service', serviceController.list);

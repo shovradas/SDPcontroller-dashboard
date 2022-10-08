@@ -3,6 +3,7 @@
 
 const validator = require('../validators/validator');
 const service = require('../services/sdpidService');
+const credentialService = require('../services/credentialService');
 const util = require('../util');
 
 const viewDir = 'sdpid';
@@ -219,5 +220,48 @@ exports.listByType = async (req, res) =>{
         sort,
         type: type,
         list: list.slice(start, end)
+    });
+}
+
+
+exports.genCredGet = async (req, res) =>{
+    let list = await service.getAll();
+
+    let sdpid = req.params.id;
+    let obj = sdpid? await service.getById(sdpid): null;
+
+    return res.render(`${viewDir}/gencred`, {
+        title: `Generate Credentials for ${titleWord}`,
+        moduleRoute: moduleRoute,
+        list,
+        obj
+    });
+}
+
+exports.genCredPost = async (req, res) =>{    
+    let obj = req.body;
+
+    let validationResult = validator.validate(obj, 'sdpid', 'gencred');
+    if(validationResult !== true){
+        let list = await service.getAll();
+        obj = await service.getById(obj.sdpid);
+        return res.render(`${viewDir}/gencred`, {
+            title: `Generate Credentials for ${titleWord}`,
+            moduleRoute: moduleRoute,
+            list,
+            obj,
+            error: validationResult
+        });
+    }
+    await credentialService.generateCredential(obj.sdpid, async (credentials)=>{
+        let list = await service.getAll();
+        obj = await service.getById(obj.sdpid);
+        return res.render(`${viewDir}/gencred`, {
+            title: `Generate Credentials for ${titleWord}`,
+            moduleRoute: moduleRoute,
+            list,
+            obj,
+            credentials
+        });
     });
 }

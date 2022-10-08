@@ -7,7 +7,7 @@
                     <th class="pl-4">SDPID</th>
                     <th>TYPE</th>
                     <th>STATUS</th>
-                    <th>ADMINISTRATOR</th>
+                    <!-- <th>ADMINISTRATOR</th> -->
                     <th>LOCATION</th>
                     <th>ORG</th>
                     <th></th>
@@ -16,12 +16,16 @@
             <tbody>
                 <% list.forEach(obj => { %>
                 <tr>
-                    <td class="pl-4"><a href="<%= moduleRoute %>/<%= obj.sdpid %>"><%= obj.sdpid %></a></td>
+                    <td class="pl-4">
+                        <a href="<%= moduleRoute %>/<%= obj.sdpid %>"><%= obj.sdpid %></a>
+                        <a href="<%= moduleRoute %>/<%= obj.sdpid %>/gencred" class="btn btn-sm" title="Generate or Update Credential"><i class="fas fa-key"></i></a>
+                    </td>
                     <td><%= obj.type %></td>        
                     <td><%- obj.valid == 1? '<span class="text-success">Active<span>': 'Inactive' %></td>
-                    <td><%= obj.user_id ? obj.user_id: 'Unassigned' %></td>                                
+                    <!-- <td><%//= obj.user_id ? obj.user_id: 'Unassigned' %></td> -->
                     <td><%= obj.locality %>, <%= obj.state %>, <%= obj.country %></td>      
-                    <td><%= obj.org %> <%= obj.org_unit ? `(${obj.org_unit})`: '' %></td>              
+                    <td><%= obj.org %> <%= obj.org_unit ? `(${obj.org_unit})`: '' %></td> 
+                    
                     <td class="text-right">
                         <a href="<%= moduleRoute %>/<%= obj.sdpid %>" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-info"></i></a>
                         <a href="<%= moduleRoute %>/<%= obj.sdpid %>/update" class="btn btn-dark btn-circle btn-sm"><i class="fas fa-edit"></i></a>
