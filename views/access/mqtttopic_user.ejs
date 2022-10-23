@@ -1,3 +1,12 @@
+<%
+    let accessMap = {
+        read: 'Subscribe',
+        write: 'Publish',
+        readwrite: 'Subscribe + Publish',
+        deny: 'Deny'
+    };
+%>
+
 <div class="mb-4">
     <% if(accessListDict.length==0) { %>
         <div class="card mb-4">
@@ -21,9 +30,14 @@
             <div id="collapseAccess<%=topic_id%>" class="collapse" aria-labelledby="headingAccess<%=topic_id%>" data-parent="#accordionAccess">
                 <div class="card-header py-4">
                     <% accessList.forEach(access=> {%>
-                        <% if(access.id) { %>
-                            <a href="/access/<%=access.id%>/mqtttopic/<%=topic_id%>/user/revoke" class="btn btn-dark btn-circle btn-sm mx-2"><i class="fas fa-minus"></i></a>
-                            <a href="/user/<%=access.user_id%>"><%=access.user_id%> - <%=access.last_name%>, <%=access.first_name%></a>
+                        <% if(access.id) { %>    
+                            <div class="d-sm-flex justify-content-between">                
+                                <div>
+                                    <a href="/access/<%=access.id%>/mqtttopic/<%=topic_id%>/user/revoke" class="btn btn-dark btn-circle btn-sm mx-2"><i class="fas fa-minus"></i></a>
+                                    <a href="/user/<%=access.user_id%>"><%=access.user_id%> - <%=access.last_name%>, <%=access.first_name%></a>
+                                </div>                                
+                                <span><%= accessMap[access.access] %></span>
+                            </div>
                             <hr>
                         <% } %>                        
                     <% }); %>

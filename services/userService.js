@@ -53,7 +53,7 @@ exports.getByUsername = async (username) =>{
 }
 
 exports.authenticate = async (username, password) =>{
-    let sql = "SELECT id FROM user_credential WHERE username=? AND password=SHA2(?, 256)";
+    let sql = "SELECT id FROM user_credential WHERE username=? AND password=SHA2(?, 512)";
     let result = await da.executeQuery(sql, [username, password]); 
     return result.length == 1;
 }

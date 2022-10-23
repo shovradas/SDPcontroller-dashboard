@@ -35,5 +35,5 @@ app.set('view engine', 'ejs');
 var server = app.listen(config.serverPort, config.serverHost, () => {
     let host = server.address().address;
     let port = server.address().port;
-    console.log(`Controller dashboard at http://${host}:${port}`);
+    console.log(`Controller dashboard running at http://${host}:${port}`);
 });

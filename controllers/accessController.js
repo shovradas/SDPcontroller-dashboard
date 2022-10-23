@@ -446,7 +446,7 @@ exports.grantTopicAccessToUserPost = async (req, res) => {
         }
 
         for(const i in obj.user_list){
-            await service.insertTopicAccessToUser({user_id: obj.user_list[i], topic_id: obj.topic_id});
+            await service.insertTopicAccessToUser({user_id: obj.user_list[i], topic_id: obj.topic_id, access: obj.access});
         }
 
         req.session.message = { status: 'success', text: 'Access granted successfully' };

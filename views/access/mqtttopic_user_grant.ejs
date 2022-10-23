@@ -16,7 +16,16 @@
                 </select>
                 <div class="text-danger"><%=typeof error != 'undefined' && error.user_list ? 'This field is required' : ''%></div>                
             </div>
-        </div>
+            <div class="form-group">
+                <label>Permission</label>
+                <select name="access" class="form-control custom-select">
+                    <option value="read">Subscribe</option>
+                    <option value="write">Publish</option>
+                    <option value="readwrite">Subscribe + Publish</option>
+                    <option value="deny">Deny</option>
+                </select>
+            </div>
+        </div>        
     </div>
     <div class="mb-5">
         <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" <%=userList.length==0?'disabled':''%>>

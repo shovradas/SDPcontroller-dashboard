@@ -229,10 +229,10 @@ exports.deleteTopicAccessFromGroup = async (id) =>{
 exports.getAllTopicAccessToUser = async () =>{
     let sql = `
         SELECT umm.id, umm.user_id, umm.topic_id, umm.topic_valid, umm.topic_name, umm.topic_description,
-        u.last_name, u.first_name
+        u.last_name, u.first_name, umm.access
         FROM
         (
-        SELECT um.id, um.user_id, m.id AS topic_id, m.valid AS 'topic_valid', m.name AS topic_name, m.description AS 'topic_description'
+        SELECT um.id, um.user_id, um.access, m.id AS topic_id, m.valid AS 'topic_valid', m.name AS topic_name, m.description AS 'topic_description'
         FROM user_mqtttopic um
         RIGHT JOIN mqtttopic m
         ON um.topic_id = m.id
@@ -269,9 +269,9 @@ exports.getTopicAccessToUserById = async (id) =>{
 }
 
 exports.insertTopicAccessToUser = async (obj) =>{
-    let sql = "INSERT INTO user_mqtttopic(user_id, topic_id) VALUES(?,?)";    
-    const {user_id, topic_id} = obj;
-    let result = await da.executeQuery(sql, [user_id, topic_id]);
+    let sql = "INSERT INTO user_mqtttopic(user_id, topic_id, access) VALUES(?,?,?)";    
+    const {user_id, topic_id, access} = obj;
+    let result = await da.executeQuery(sql, [user_id, topic_id, access]);
     return result.insertId;
 }
 
