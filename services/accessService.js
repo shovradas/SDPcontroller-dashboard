@@ -171,10 +171,10 @@ exports.deleteTopicAccessFromClient = async (id) =>{
 
 exports.getAllTopicAccessToGroup = async () =>{
     let sql = `SELECT gmm.id, gmm.group_id, gmm.topic_id, gmm.topic_valid, gmm.topic_name, gmm.topic_description,
-                g.valid AS 'group_valid', g.name AS 'group_name', g.description AS 'group_description'
+                g.valid AS 'group_valid', g.name AS 'group_name', g.description AS 'group_description', gmm.access
                 FROM
                 (
-                SELECT gm.id, gm.group_id, m.id AS topic_id, m.valid AS 'topic_valid', m.name AS topic_name, m.description AS 'topic_description'
+                SELECT gm.id, gm.group_id, gm.access, m.id AS topic_id, m.valid AS 'topic_valid', m.name AS topic_name, m.description AS 'topic_description'
                 FROM group_mqtttopic gm
                 RIGHT JOIN mqtttopic m
                 ON gm.topic_id = m.id

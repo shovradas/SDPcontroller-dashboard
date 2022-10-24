@@ -1,3 +1,12 @@
+<%
+    let accessMap = {
+        read: 'Subscribe',
+        write: 'Publish',
+        readwrite: 'Subscribe + Publish',
+        deny: 'Deny'
+    };
+%>
+
 <div class="mb-4">
     <% if(accessListDict.length==0) { %>
         <div class="card mb-4">
@@ -22,8 +31,13 @@
                 <div class="card-header py-4">
                     <% accessList.forEach(access=> {%>
                         <% if(access.id) { %>
-                            <a href="/access/<%=access.id%>/mqtttopic/<%=topic_id%>/group/revoke" class="btn btn-dark btn-circle btn-sm mx-2"><i class="fas fa-minus"></i></a>
-                            <a href="/group/<%=access.group_id%>"><%=access.group_id%> - <%=access.group_name%>, <%=access.group_description%></a>
+                            <div class="d-sm-flex justify-content-between">                
+                                <div>
+                                    <a href="/access/<%=access.id%>/mqtttopic/<%=topic_id%>/group/revoke" class="btn btn-dark btn-circle btn-sm mx-2"><i class="fas fa-minus"></i></a>
+                                    <a href="/group/<%=access.group_id%>"><%=access.group_id%> - <%=access.group_name%>, <%=access.group_description%></a>
+                                </div>                                
+                                <span><%= accessMap[access.access] %></span>
+                            </div>
                             <hr>
                         <% } %>                        
                     <% }); %>
